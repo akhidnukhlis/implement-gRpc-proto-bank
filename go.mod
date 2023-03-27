@@ -1,4 +1,4 @@
-module implement-gRpc-microservice
+module github.com/akhidnukhlis/implement-gRpc-microservice
 
 go 1.19
 
