@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AuthorServiceClient interface {
 	ServiceRegisterAuthor(ctx context.Context, in *CreateAuthorRequest, opts ...grpc.CallOption) (*AuthorStatusResponse, error)
-	ServiceFindUserById(ctx context.Context, in *FindAuthorByIdRequest, opts ...grpc.CallOption) (*AuthorStatusResponse, error)
+	ServiceFindAuthorById(ctx context.Context, in *FindAuthorByIdRequest, opts ...grpc.CallOption) (*AuthorStatusResponse, error)
 }
 
 type authorServiceClient struct {
@@ -43,9 +43,9 @@ func (c *authorServiceClient) ServiceRegisterAuthor(ctx context.Context, in *Cre
 	return out, nil
 }
 
-func (c *authorServiceClient) ServiceFindUserById(ctx context.Context, in *FindAuthorByIdRequest, opts ...grpc.CallOption) (*AuthorStatusResponse, error) {
+func (c *authorServiceClient) ServiceFindAuthorById(ctx context.Context, in *FindAuthorByIdRequest, opts ...grpc.CallOption) (*AuthorStatusResponse, error) {
 	out := new(AuthorStatusResponse)
-	err := c.cc.Invoke(ctx, "/authorService.AuthorService/ServiceFindUserById", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/authorService.AuthorService/ServiceFindAuthorById", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (c *authorServiceClient) ServiceFindUserById(ctx context.Context, in *FindA
 // for forward compatibility
 type AuthorServiceServer interface {
 	ServiceRegisterAuthor(context.Context, *CreateAuthorRequest) (*AuthorStatusResponse, error)
-	ServiceFindUserById(context.Context, *FindAuthorByIdRequest) (*AuthorStatusResponse, error)
+	ServiceFindAuthorById(context.Context, *FindAuthorByIdRequest) (*AuthorStatusResponse, error)
 	mustEmbedUnimplementedAuthorServiceServer()
 }
 
@@ -68,8 +68,8 @@ type UnimplementedAuthorServiceServer struct {
 func (UnimplementedAuthorServiceServer) ServiceRegisterAuthor(context.Context, *CreateAuthorRequest) (*AuthorStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ServiceRegisterAuthor not implemented")
 }
-func (UnimplementedAuthorServiceServer) ServiceFindUserById(context.Context, *FindAuthorByIdRequest) (*AuthorStatusResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ServiceFindUserById not implemented")
+func (UnimplementedAuthorServiceServer) ServiceFindAuthorById(context.Context, *FindAuthorByIdRequest) (*AuthorStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ServiceFindAuthorById not implemented")
 }
 func (UnimplementedAuthorServiceServer) mustEmbedUnimplementedAuthorServiceServer() {}
 
@@ -102,20 +102,20 @@ func _AuthorService_ServiceRegisterAuthor_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthorService_ServiceFindUserById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _AuthorService_ServiceFindAuthorById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FindAuthorByIdRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthorServiceServer).ServiceFindUserById(ctx, in)
+		return srv.(AuthorServiceServer).ServiceFindAuthorById(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/authorService.AuthorService/ServiceFindUserById",
+		FullMethod: "/authorService.AuthorService/ServiceFindAuthorById",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthorServiceServer).ServiceFindUserById(ctx, req.(*FindAuthorByIdRequest))
+		return srv.(AuthorServiceServer).ServiceFindAuthorById(ctx, req.(*FindAuthorByIdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -132,8 +132,8 @@ var AuthorService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AuthorService_ServiceRegisterAuthor_Handler,
 		},
 		{
-			MethodName: "ServiceFindUserById",
-			Handler:    _AuthorService_ServiceFindUserById_Handler,
+			MethodName: "ServiceFindAuthorById",
+			Handler:    _AuthorService_ServiceFindAuthorById_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
