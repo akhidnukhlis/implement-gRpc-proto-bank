@@ -77,5 +77,5 @@ message FindAuthorByIdRequest {
 
 service AuthorService {
     rpc ServiceRegisterAuthor(CreateAuthorRequest) returns(AuthorStatusResponse);
-    rpc ServiceFindUserById(FindAuthorByIdRequest) returns (AuthorStatusResponse);
+    rpc ServiceFindAuthorById(FindAuthorByIdRequest) returns (AuthorStatusResponse);
 }
