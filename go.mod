@@ -1,4 +1,4 @@
-module github.com/akhidnukhlis/implement-gRpc-microservice
+module implement-gRpc-proto-bank
 
 go 1.19
 
