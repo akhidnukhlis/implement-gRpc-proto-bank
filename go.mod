@@ -1,4 +1,4 @@
-module implement-gRpc-proto-bank
+module github.com/akhidnukhlis/implement-gRpc-proto-bank
 
 go 1.19
 
